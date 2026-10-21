@@ -122,3 +122,23 @@ This local prototype is prepared for review only. Do not publish until the tests
 - Basic secret-pattern scan: no matches found.
 - Frontend production build: **not verified in the build environment**. npm dependency installation timed out before packages were installed, so `npm run build` could not run successfully here. Run `npm install` and `npm run build` on a machine with npm registry access before treating the prototype as fully validated.
 - Git: no repository was present initially. A local repository/commit has intentionally not been created because the frontend production build remains unverified. No remote repository was created and nothing was pushed.
+
+## Hosted demo and backend configuration
+
+The frontend intentionally runs in **demo mode** when `VITE_API_BASE_URL` is not configured. This is the recommended setting for a Vercel-only prototype: it loads the bundled `data/demo/demo_data.json` sample records, keeps the map and evidence views usable, and labels generated investigations as illustrative. It does not imply that live satellite analysis is running.
+
+To connect a deployed FastAPI backend:
+
+1. Deploy the `backend/` application to a reachable Python hosting service using the README's Uvicorn command and a persistent disk for SQLite if investigation history must persist.
+2. Set `VITE_API_BASE_URL` in the frontend hosting environment to the full backend API base, for example `https://your-api-host.example.com/api`.
+3. Set `TERRAWATCH_CORS_ORIGINS` on the backend to the exact frontend origin, for example `https://your-terrawatch.vercel.app` (comma-separate any additional allowed origins).
+4. Redeploy the frontend after changing `VITE_API_BASE_URL`. Vite environment variables are embedded at build time.
+5. Verify `https://your-api-host.example.com/api/health` and then test assets and an investigation from the frontend.
+
+Do not set `VITE_API_BASE_URL` to `127.0.0.1` for a public deployment. That address always refers to the visitor's own computer. If the API is unavailable, the UI falls back to bundled demo data and displays a prototype-mode notice instead of blocking the dashboard.
+
+### Environment variables
+
+- Frontend: `VITE_API_BASE_URL` — optional, public FastAPI URL ending in `/api`.
+- Backend: `TERRAWATCH_CORS_ORIGINS` — comma-separated allowed frontend origins.
+- Backend: `TERRAWATCH_DB_PATH` and `TERRAWATCH_DATA_DIR` — optional persistent storage paths.

@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+import os
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from app import storage
@@ -10,7 +11,9 @@ from app.services.stac import search_scenes
 async def lifespan(app: FastAPI):
     storage.init_db(); yield
 app=FastAPI(title='TerraWatch API',version='0.1.0',description='Evidence-linked environmental change triage; not structural diagnosis.',lifespan=lifespan)
-app.add_middleware(CORSMiddleware,allow_origins=['http://localhost:5173','http://127.0.0.1:5173'],allow_credentials=False,allow_methods=['GET','POST'],allow_headers=['*'])
+_default_origins = 'http://localhost:5173,http://127.0.0.1:5173'
+_allowed_origins = [origin.strip().rstrip('/') for origin in os.getenv('TERRAWATCH_CORS_ORIGINS', _default_origins).split(',') if origin.strip()]
+app.add_middleware(CORSMiddleware, allow_origins=_allowed_origins, allow_credentials=False, allow_methods=['GET','POST','OPTIONS'], allow_headers=['*'])
 @app.get('/api/health')
 def health(): return {'status':'ok','mode':'demo-capable','database':'sqlite','llm_configured':False}
 @app.get('/api/assets')

@@ -29,3 +29,30 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f4f6f7;color:#233f50;fon
 .view-evidence .workspace-grid{grid-template-columns:minmax(0,1fr)}.view-agent .workspace-grid{grid-template-columns:minmax(0,1fr)}
 @media(max-width:900px){.purpose-steps{grid-template-columns:1fr}.purpose-steps>div{border-right:0;border-bottom:1px solid #e1e8eb;margin:0;padding:10px 0}.purpose-steps>div:last-child{border-bottom:0}.sidebar{width:68px}.main{margin-left:68px;width:calc(100% - 68px)}}
 @media(max-width:580px){.content{padding:17px 12px}.purpose-panel{padding:14px}.page-heading h1{font-size:23px}.purpose-steps{margin-top:10px}.topbar{padding:0 12px}}
+
+/* TerraWatch prototype polish: warm civic orange, accessible status, and mobile spacing. */
+:root{--tw-orange:#f26a1b;--tw-orange-dark:#d9550c;--tw-orange-soft:#fff2e9;--tw-orange-line:#ffd6bd}
+.brand-mark{background:var(--tw-orange);color:#fff;border-color:var(--tw-orange)}
+.primary-btn{background:var(--tw-orange);border-color:var(--tw-orange);color:#fff;transition:transform .16s ease,background .16s ease,box-shadow .16s ease}
+.primary-btn:hover:not(:disabled){background:var(--tw-orange-dark);border-color:var(--tw-orange-dark);transform:translateY(-1px);box-shadow:0 5px 14px #f26a1b2b}
+.primary-btn:focus-visible,.subtle-btn:focus-visible,.nav:focus-visible,.icon-button:focus-visible{outline:3px solid #f6a574;outline-offset:2px}
+.nav.active{box-shadow:inset 3px 0 var(--tw-orange);border-color:#f5d6c4;background:#fff5ee;color:#79360e}
+.nav.active svg,.sidebar-foot svg{color:#ffb17e}
+.mode-pill{background:#fff4eb;border-color:#ffd9c3;color:#a64b12}
+.mode-pill .pulse-dot{background:var(--tw-orange)}
+.mode-pill.api-connected{background:#edf8f1;border-color:#c8e9d3;color:#246b45}
+.mode-pill.api-connected .pulse-dot{background:#26a269}
+.stat-icon,.purpose-icon{background:#fff2e9;color:var(--tw-orange);border-color:#ffe0ce}
+.detail-tabs button.selected{color:var(--tw-orange-dark);border-bottom-color:var(--tw-orange)}
+.subtle-btn:hover,.icon-button:hover{border-color:#f3b48f;color:#a64b12;background:#fff8f3}
+.demo-status-banner{display:flex;align-items:center;gap:12px;margin:12px 0 14px;padding:12px 15px;background:#fff8f3;border:1px solid #f5d4bf;border-left:3px solid var(--tw-orange);border-radius:5px;color:#78411f}
+.demo-status-banner>div{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.demo-status-banner b{font-size:12px;color:#7b3d16}
+.demo-status-banner span:not(.demo-status-dot):not(.demo-status-label){font-size:11px;line-height:1.5;color:#8a654f}
+.demo-status-dot{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:var(--tw-orange);box-shadow:0 0 0 4px #f26a1b1a}
+.demo-status-label{font-size:9px;font-weight:800;letter-spacing:.7px;white-space:nowrap;padding:5px 7px;background:#ffeadb;color:#a64b12;border-radius:3px}
+.error-banner{border-radius:5px}
+.stat-card,.panel,.purpose-panel,.notice{transition:border-color .16s ease,box-shadow .16s ease}
+.stat-card:hover,.panel:hover{border-color:#c6d7df;box-shadow:0 5px 18px #15384a0a}
+button:disabled{opacity:.6;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+@media(max-width:580px){.demo-status-banner{align-items:flex-start;padding:11px;gap:9px}.demo-status-label{display:none}.demo-status-banner span:not(.demo-status-dot):not(.demo-status-label){font-size:10px}.top-actions .mode-pill{max-width:128px;white-space:nowrap}.top-actions .icon-button{width:32px;height:32px}.content{padding-bottom:30px}}
